@@ -1,0 +1,17 @@
+.register-page {
+    height: 100vh;
+    width: 100vw;
+    display: grid;
+    grid-template-columns: 40% 60%;
+}
+
+.register-page aside {
+    background: url("../assets/laptopcoffeeflowershandwriting.jpg");
+    background-size: cover;
+}
+
+.register-page section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
