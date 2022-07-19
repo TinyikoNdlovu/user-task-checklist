@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 import "../css/Login.css";
 
-const Login = () => {
+const Login = ({login}) => {
     
 
     return (
@@ -30,7 +30,7 @@ const Login = () => {
                     <Typography variant='h6' style={{margin:'opx 40px'}}>OR</Typography>
 
                 <div>
-                    <GoogleButton>Sign in with Google</GoogleButton>
+                    <GoogleButton onClick={login}>Sign in with Google</GoogleButton>
                 </div>
                 </Container>
             </section>
