@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import './App.css';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 
-import LoginPage from './components/LoginPage';
-import RegisterUser from './components/RegisterUser';
-import HomePage from './components/HomePage';
+import LoginPage from './pages/LoginPage';
+import RegisterUser from './pages/RegisterUser';
+import HomePage from './pages/HomePage';
 import { app } from './firebase-config';
 import { async } from '@firebase/util';
 
@@ -51,6 +51,7 @@ function App() {
 
       // The signed-in user info.
     setUser(() => ({...result.user}));
+    navigate("/homepage");
     }).catch ((error) => {
       alert((error.message));
     })
@@ -58,7 +59,9 @@ function App() {
 
   const logOut = async () => {
     await signOut(auth).then(() => {
+      setUser({});
       alert("Log out successful");
+      navigate("/")
     }).catch((error) => {
       alert((error.message));
     })
@@ -69,7 +72,7 @@ function App() {
         <Routes>
           <Route path='/' element={<LoginPage login={loginWithGoogle} />} />
           <Route path='/registeruser' element={<RegisterUser registerUserWithEmail={registerUserWithEmail} setFullName={setFullName} setEmail={setEmail} setPassword={setPassword} />} />
-          <Route path='/homepage' element={<HomePage logout={logOut} />} />
+          <Route path='/homepage' element={<HomePage user={user} logout={logOut} />} />
         </Routes>
   );
 }
