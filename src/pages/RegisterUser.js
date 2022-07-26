@@ -13,9 +13,9 @@ const RegisterUser = ({registerUserWithEmail, setFullName, setEmail, setPassword
             <aside></aside>
             <section>
                 <Container align="center">
-                    <Typography variant='h2' style={{marginBottom:'50px'}}>Welcome Back</Typography>
+                    <Typography variant='h4' style={{marginBottom:'50px'}}>Welcome Back</Typography>
 
-                    <Typography variant='h5' style={{marginBottom: '25px'}}>Manage Your Task Checklist Easily</Typography>
+                    <Typography variant='h6' style={{marginBottom: '25px'}}>Manage Your Task Checklist Easily</Typography>
 
                     <Typography variant='subtitle2'>Full Name</Typography>
                     <TextField required label="FullName" type="text" style={{width: '60%'}} onChange={e => setFullName(e.target.value)}></TextField>
@@ -33,7 +33,7 @@ const RegisterUser = ({registerUserWithEmail, setFullName, setEmail, setPassword
                     <Typography variant='h6' style={{margin:'opx 40px'}}>OR</Typography>
 
                 <div>
-                    <GoogleButton>Sign up with Google</GoogleButton>
+                    <GoogleButton style={{backgroundColor: '#FFFFFF', color: '#00695c'}} onClick={() => registerUserWithEmail()}>Sign up with Google</GoogleButton>
                 </div>
                 </Container>
             </section>
