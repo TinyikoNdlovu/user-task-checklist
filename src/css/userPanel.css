@@ -1,0 +1,19 @@
+.userpanel {
+    display: flex;
+    margin-top: 10px;
+    justify-content: space-between;
+    margin-bottom: 70px;
+}
+
+.userpanel h1 {
+    margin-left: 35px;
+    font-size: 18px;
+}
+
+.userpanel button {
+    margin-right: 50px;
+    width: 5%;
+    height: 35px;
+    background-color: #00695c;
+    color: #fff;
+}

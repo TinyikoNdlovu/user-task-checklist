@@ -1,0 +1,24 @@
+.task {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+    margin-top: 40px;
+}
+.task-item {
+    text-decoration: none;
+}
+
+.task-item li {
+    list-style: none;
+}
+
+.complete-btn {
+    width: 10%;
+    height: 35px;
+    margin-left: 20px;
+    border: 2;
+    background-color: #fff;
+    border-color: #00695c;
+    color: #00695c;
+}

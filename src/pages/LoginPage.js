@@ -37,7 +37,7 @@ const Login = ({loginWithEmail, login, setPwd, setEmail}) => {
             
         </div>
         
-    )
+    );
 }
 
 export default Login;

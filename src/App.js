@@ -9,12 +9,20 @@ import { app } from './firebase-config';
 import { async } from '@firebase/util';
 
 import { db } from './firebase-config';
-import { collection, addDoc } from 'firebase/firestore';
+import { collection, addDoc, getDocs } from 'firebase/firestore';
 
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, getAuth, GoogleAuthProvider, signInWithPopup, updateProfile, signOut, onAuthStateChanged } from 'firebase/auth';
-import { CleaningServices } from '@mui/icons-material';
+import { createUserWithEmailAndPassword, 
+  signInWithEmailAndPassword, 
+  getAuth, 
+  GoogleAuthProvider, 
+  signInWithPopup, 
+  updateProfile, 
+  signOut, 
+  
+  onAuthStateChanged } from 'firebase/auth';
 
-function App() {
+
+function App(props) {
 
   const auth = getAuth(app);
 
@@ -32,6 +40,12 @@ function App() {
   const [password2, setPassword2] = useState("");
 
   const [user, setUser] = useState({});
+  const [task, setTask] = useState([]);
+  const collectionRef = collection(db, "tasks");
+
+  const [priorityType, setPriorityType] = useState('');
+
+  const [priority, setPriority] = useState([]);
 
   //function to create new user
   const registerUserWithEmail = async () => {
@@ -99,18 +113,41 @@ function App() {
     }
   }, []);
 
-  const addTask = async (e) => {
-    await addDoc(collection(db, "tasks"), {
-      completed: false,
-    });
-  }
+  const getTasks = async() => {
+    const data = await getDocs(collectionRef);
+    setTask(data.docs.map((doc) => ({ ...doc.data(), id: doc.id})));
+  };
+
+  const submitTaskHandler = (() => {
+    const collectionRef = collection(db, "tasks");
+    const checkList = {
+      task: task,
+      priorityType: priorityType,
+    };
+
+    addDoc(collectionRef, checkList).then(() => {
+        console.log(checkList);
+        alert("Task added successfully")
+    }).catch((error) => {
+        console.log(error);
+    })
+    props.submitTaskHandler(task, priorityType);
+    
+}) 
+
+  const addTask = ((task, priorityType) => {
+    setTask((tasks) => [...tasks, {
+      task:task,
+      priorityType: priorityType
+    }])
+  }) 
 
   return (
     
         <Routes>
           <Route path='/' element={<LoginPage login={loginWithGoogle} loginWithEmail={loginWithEmail} setPwd={setPassword2} setEmail={setEmail2} loginWithGoogle={loginWithGoogle} />} />
           <Route path='/registeruser' element={<RegisterUser registerUserWithEmail={registerUserWithEmail} setFullName={setFullName} setEmail={setEmail} setPassword={setPassword} />} />
-          <Route path='/homepage' element={<HomePage user={user} logout={logOut} taskTodo={addTask} />} />
+          <Route path='/homepage' element={<HomePage user={user} logout={logOut} submitTaskHandler={submitTaskHandler} />} />
         </Routes>
   );
 }

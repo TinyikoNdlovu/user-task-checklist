@@ -40,7 +40,7 @@ const RegisterUser = ({registerUserWithEmail, setFullName, setEmail, setPassword
             
         </div>
         
-    )
+    );
 }
 
 export default RegisterUser;
