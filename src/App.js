@@ -9,7 +9,7 @@ import { app } from './firebase-config';
 import { async } from '@firebase/util';
 
 import { db } from './firebase-config';
-import { collection, addDoc, getDocs } from 'firebase/firestore';
+import { query, collection, addDoc, getDocs, onSnapshot, QuerySnapshot } from 'firebase/firestore';
 
 import { createUserWithEmailAndPassword, 
   signInWithEmailAndPassword, 
@@ -118,36 +118,29 @@ function App(props) {
     setTask(data.docs.map((doc) => ({ ...doc.data(), id: doc.id})));
   };
 
-  const submitTaskHandler = (() => {
-    const collectionRef = collection(db, "tasks");
-    const checkList = {
-      task: task,
-      priorityType: priorityType,
-    };
-
-    addDoc(collectionRef, checkList).then(() => {
-        console.log(checkList);
-        alert("Task added successfully")
-    }).catch((error) => {
-        console.log(error);
+  //Create Task Todo
+  //Read task from firebase
+  useEffect(() => {
+    const q = query(collection(db, 'tasks'))
+    const unsubscribe = onSnapshot(q, (QuerySnapshot) => {
+      let taskArr = []
+      QuerySnapshot.forEach((doc) => {
+        taskArr.push({...doc.data(), id: doc.id})
+      });
+      setTask(taskArr)
     })
-    props.submitTaskHandler(task, priorityType);
-    
-}) 
+    return () => unsubscribe()
+  }, [])
 
-  const addTask = ((task, priorityType) => {
-    setTask((tasks) => [...tasks, {
-      task:task,
-      priorityType: priorityType
-    }])
-  }) 
+  //Update task in firebase
+  //Delete task
 
   return (
     
         <Routes>
           <Route path='/' element={<LoginPage login={loginWithGoogle} loginWithEmail={loginWithEmail} setPwd={setPassword2} setEmail={setEmail2} loginWithGoogle={loginWithGoogle} />} />
           <Route path='/registeruser' element={<RegisterUser registerUserWithEmail={registerUserWithEmail} setFullName={setFullName} setEmail={setEmail} setPassword={setPassword} />} />
-          <Route path='/homepage' element={<HomePage user={user} logout={logOut} submitTaskHandler={submitTaskHandler} />} />
+          <Route path='/homepage' element={<HomePage user={user} logout={logOut} getTask={getTasks} />} />
         </Routes>
   );
 }

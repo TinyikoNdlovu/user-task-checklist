@@ -6,12 +6,12 @@ const TaskList = ({tasks, setTasks}) => {
     console.log(tasks);
 
     return (
-        <div className="task-container">
-            <ul className="task-list">
+        <div className="task-container" style={{display: "flex",flexDirection: "row", justifyContent: "center", alignItems: "center"}}>
+            <li className="task-list">
                 {tasks.map(task => (
                     <Task setTasks={setTasks} text={task.text} />
                 ))}
-            </ul>
+            </li>
         </div>
     );
 }

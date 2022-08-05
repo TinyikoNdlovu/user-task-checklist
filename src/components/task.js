@@ -2,14 +2,17 @@ import React from "react";
 
 import '../css/task.css';
 
-const Task = ({text, tasks, setTasks}) => {
+const Task = ({text, tasks, setTasks, task}) => {
 
     const deleteHandler = () => {};
     return(
-        <div className="task">
-            <li className="task-item">{text}</li>
-            <button onClick={deleteHandler} className="complete-btn">COMPLETE</button>
-        </div>
+        <ul>
+            <div className="task" style={{display: "flex",flexDirection: "row", justifyContent: "center", alignItems: "center", marginBottom: "15px"}}>
+                <li className="task-item">{text}</li>
+                <button onClick={deleteHandler} className="complete-btn">COMPLETE</button>
+            </div>
+        </ul>
+        
 
     );
 }

@@ -11,8 +11,9 @@ import '../css/addTask.css';
 
 import { db } from '../firebase-config';
 import { addDoc, collection } from 'firebase/firestore';
+import Task from './task';
 
-const AddTask = ({setInputField, props, tasks, setTasks, inputField, submitTaskHandler}) => {
+const AddTask = ({setInputField, props, tasks, setTasks, inputField}) => {
     
     const [task, setTask] = useState([]);
     const [priorityType, setPriorityType] = useState('');
@@ -24,12 +25,18 @@ const AddTask = ({setInputField, props, tasks, setTasks, inputField, submitTaskH
         setInputField(e.target.value);
     };
 
+    function addTodoTask (e) {
+        e.preventDefault();
+        
+       
+    }
+
     return (
         <section>
-                <Container className="container-tasks" align="center">
+                <Container className="container-tasks" style={{display: "flex",flexDirection: "row", justifyContent: "center", alignItems: "center", marginBottom: "20px"}}>
 
                     <Typography variant='subtitle2'>Tasks</Typography>
-                    <TextField value={inputField} onChange={inputFieldHandler} required label="Add New Task" type="text" style={{width: '30%'}}></TextField>
+                    <TextField value={task} onChange={(e) => setTask(e.target.value)} required label="Add New Task" type="text" style={{width: '30%'}}></TextField>
 
                     <InputLabel id="demo-simple-select-label">Priority</InputLabel>
                     <Select 
@@ -42,15 +49,10 @@ const AddTask = ({setInputField, props, tasks, setTasks, inputField, submitTaskH
                         <MenuItem value={'Medium'}>Medium</MenuItem>
                         <MenuItem value={'Low'}>Low</MenuItem>
                     </Select>
-
-
                     
-                    <Fab style={{marginTop: '20px', backgroundColor: '#00695c', borderRadius: '15px', width: '45px', color: '#fff'}} onClick={submitTaskHandler}>
+                    <Fab type='submit' style={{marginTop: '20px', backgroundColor: '#00695c', borderRadius: '15px', width: '45px', color: '#fff'}} onClick={addTodoTask}>
                         <AddIcon />
                     </Fab>
-
-                   
-
                 
                 </Container>
             </section>
