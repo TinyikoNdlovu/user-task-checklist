@@ -9,7 +9,7 @@ import { app } from './firebase-config';
 import { async } from '@firebase/util';
 
 import { db } from './firebase-config';
-import { query, collection, addDoc, getDocs, onSnapshot, QuerySnapshot } from 'firebase/firestore';
+import { query, collection, addDoc, getDocs, deleteDoc, doc, onSnapshot, QuerySnapshot } from 'firebase/firestore';
 
 import { createUserWithEmailAndPassword, 
   signInWithEmailAndPassword, 
@@ -22,7 +22,7 @@ import { createUserWithEmailAndPassword,
   onAuthStateChanged } from 'firebase/auth';
 
 
-function App(props) {
+function App() {
 
   const auth = getAuth(app);
 
@@ -120,27 +120,27 @@ function App(props) {
 
   //Create Task Todo
   //Read task from firebase
-  useEffect(() => {
-    const q = query(collection(db, 'tasks'))
-    const unsubscribe = onSnapshot(q, (QuerySnapshot) => {
-      let taskArr = []
-      QuerySnapshot.forEach((doc) => {
-        taskArr.push({...doc.data(), id: doc.id})
-      });
-      setTask(taskArr)
-    })
-    return () => unsubscribe()
-  }, [])
+ const addPriority = ((task, priorityType) => {
+
+  setPriority((tasks) => [...tasks, {
+    task:task,
+    priorityType:priorityType
+  }])
+ })
 
   //Update task in firebase
   //Delete task
+  const deleteTask = async(id) => {
+    let data = await doc(collectionRef, id);
+    await deleteDoc(data).then(getTasks());
+};
 
   return (
     
         <Routes>
           <Route path='/' element={<LoginPage login={loginWithGoogle} loginWithEmail={loginWithEmail} setPwd={setPassword2} setEmail={setEmail2} loginWithGoogle={loginWithGoogle} />} />
           <Route path='/registeruser' element={<RegisterUser registerUserWithEmail={registerUserWithEmail} setFullName={setFullName} setEmail={setEmail} setPassword={setPassword} />} />
-          <Route path='/homepage' element={<HomePage user={user} logout={logOut} getTask={getTasks} />} />
+          <Route path='/homepage' element={<HomePage user={user} logout={logOut} getTask={getTasks} list={priority} add={addPriority} setPriority={setPriority} deleteTask={deleteTask} />} />
         </Routes>
   );
 }

@@ -11,24 +11,34 @@ import '../css/addTask.css';
 
 import { db } from '../firebase-config';
 import { addDoc, collection } from 'firebase/firestore';
-import Task from './task';
 
-const AddTask = ({setInputField, props, tasks, setTasks, inputField}) => {
+const AddTask = (props) => {
     
     const [task, setTask] = useState([]);
     const [priorityType, setPriorityType] = useState('');
 
     // const [priority, setPriority] = useState('');
 
-    const inputFieldHandler = (e) => {
-        console.log(e.target.value);
-        setInputField(e.target.value);
-    };
+    const add = (() => {
+        const collectionRef = collection(db, "tasks");
 
-    function addTodoTask (e) {
-        e.preventDefault();
-        
-       
+        const priority = {
+            task: task,
+            priorityType: priorityType,
+        };
+
+        addDoc(collectionRef, priority).then(()=>{
+            alert("Task added successfully");
+        }).catch((error)=>{
+            console.log(error);
+        })
+
+        props.add(task, priorityType);
+    })
+
+    const clearInput = () => {
+        document.getElementById('new-task').value = "";
+        document.getElementById('demo-simple-select').value = "select";
     }
 
     return (
@@ -36,7 +46,7 @@ const AddTask = ({setInputField, props, tasks, setTasks, inputField}) => {
                 <Container className="container-tasks" style={{display: "flex",flexDirection: "row", justifyContent: "center", alignItems: "center", marginBottom: "20px"}}>
 
                     <Typography variant='subtitle2'>Tasks</Typography>
-                    <TextField value={task} onChange={(e) => setTask(e.target.value)} required label="Add New Task" type="text" style={{width: '30%'}}></TextField>
+                    <TextField id="new-task" value={task} onChange={(e) => setTask(e.target.value)} required label="Add New Task" type="text" style={{width: '30%'}}></TextField>
 
                     <InputLabel id="demo-simple-select-label">Priority</InputLabel>
                     <Select 
@@ -45,12 +55,12 @@ const AddTask = ({setInputField, props, tasks, setTasks, inputField}) => {
                     value={priorityType}
                     label="Priority"
                     onChange={(e) => setPriorityType(e.target.value)} >
-                        <MenuItem value={'high'}>High</MenuItem>
-                        <MenuItem value={'Medium'}>Medium</MenuItem>
-                        <MenuItem value={'Low'}>Low</MenuItem>
+                        <MenuItem value={'high'} >High</MenuItem>
+                        <MenuItem value={'medium'}>Medium</MenuItem>
+                        <MenuItem value={'low'}>Low</MenuItem>
                     </Select>
                     
-                    <Fab type='submit' style={{marginTop: '20px', backgroundColor: '#00695c', borderRadius: '15px', width: '45px', color: '#fff'}} onClick={addTodoTask}>
+                    <Fab type='submit' style={{marginTop: '20px', backgroundColor: '#00695c', borderRadius: '15px', width: '45px', color: '#fff'}} onClick={add} onSubmit={clearInput}>
                         <AddIcon />
                     </Fab>
                 

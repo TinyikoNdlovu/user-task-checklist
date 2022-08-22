@@ -1,0 +1,47 @@
+.priority-task {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    background-color: lightgrey;
+    color: black;
+    width: 600px;
+    height: 50px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.priority-task h1 {
+    width: 500px;
+    font-size: 14px;
+    font-weight: 800;
+    padding: 5px 10px;
+}
+
+.high-line {
+    border-bottom: 4px solid #FF0000;
+    width: 100%;
+    margin-top: -1.2vh;
+}
+
+.medium-line {
+    border-bottom: 4px solid #FFBF00;
+    width: 100%;
+    margin-top: -1.2vh;
+}
+
+.low-line {
+    border-bottom: 4px solid #00FF00;
+    width: 100%;
+    margin-top: -1.2vh;
+}
+
+.complete-btn {
+    width: 30%;
+    height: 35px;
+    margin-right: 15px;
+    border: 1;
+    background-color: #fff;
+    border-color: #00695c;
+    color: #00695c;
+}
