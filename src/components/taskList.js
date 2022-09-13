@@ -2,6 +2,9 @@ import React from "react";
 
 import '../css/taskList.css';
 
+// import { db } from './firebase-config';
+// import { query, collection, deleteDoc, doc } from 'firebase/firestore';
+
 //import Task from './task'
 
 const TaskList = (props) => {
@@ -15,20 +18,20 @@ const TaskList = (props) => {
                 {props.list.map((task, id) => (
                     
                     <div style={{marginTop:"10%"}}>
-                        {task.prioryType === "High" ? (
+                        {task.priorytyType === "High" ? (
                             <div>
                                 <div className="priority-task">
                                 <h1 className="task-item">{task.task}</h1>
-                                <button onClick={(e) => props.deleteTask(id)} className="complete-btn">COMPLETE</button>
+                                <button onClick={(e) => props.deleteTask} className="complete-btn">COMPLETE</button>
                                 </div>
                                 <div className="high-line"></div>
                             </div>
 
-                        ) : task.prioryType === "Medium" ? (
+                        ) : task.priorytyType === "Medium" ? (
                             <div>
                                     <div className="priority-task">
                                     <h1 className="task-item">{task.task}</h1>
-                                    <button onClick={(e) => props.deleteTask(id)} className="complete-btn">COMPLETE</button>
+                                    <button onClick={(e) => props.deleteTask} className="complete-btn">COMPLETE</button>
                                     </div>
                                     <div className="medium-line"></div>
                                 </div>
@@ -36,7 +39,7 @@ const TaskList = (props) => {
                             <div>
                             <div className="priority-task">
                             <h1 className="task-item">{task.task}</h1>
-                            <button onClick={(e) => props.deleteTask(id)} className="complete-btn">COMPLETE</button>
+                            <button onClick={(e) => props.deleteTask} className="complete-btn">COMPLETE</button>
                             </div>
                             <div className="low-line"></div>
                         </div>

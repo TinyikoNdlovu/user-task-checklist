@@ -45,7 +45,6 @@ function App() {
 
   const [priorityType, setPriorityType] = useState('');
 
-  const [priority, setPriority] = useState([]);
 
   //function to create new user
   const registerUserWithEmail = async () => {
@@ -120,9 +119,9 @@ function App() {
 
   //Create Task Todo
   //Read task from firebase
- const addPriority = ((task, priorityType) => {
+ const addTask = ((task, priorityType) => {
 
-  setPriority((tasks) => [...tasks, {
+  setTask((tasks) => [...tasks, {
     task:task,
     priorityType:priorityType
   }])
@@ -140,7 +139,7 @@ function App() {
         <Routes>
           <Route path='/' element={<LoginPage login={loginWithGoogle} loginWithEmail={loginWithEmail} setPwd={setPassword2} setEmail={setEmail2} loginWithGoogle={loginWithGoogle} />} />
           <Route path='/registeruser' element={<RegisterUser registerUserWithEmail={registerUserWithEmail} setFullName={setFullName} setEmail={setEmail} setPassword={setPassword} />} />
-          <Route path='/homepage' element={<HomePage user={user} logout={logOut} getTask={getTasks} list={priority} add={addPriority} setPriority={setPriority} deleteTask={deleteTask} />} />
+          <Route path='/homepage' element={<HomePage user={user} logout={logOut} getTask={getTasks} list={task} add={addTask} setTask={setTask} deleteTask={deleteTask} />} />
         </Routes>
   );
 }

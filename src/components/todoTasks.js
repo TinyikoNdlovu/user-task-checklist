@@ -7,12 +7,12 @@ import MenuItem from '@mui/material/MenuItem';
 import { Fab } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 
-import '../css/addTask.css';
+import '../css/todoTasks.css';
 
 import { db } from '../firebase-config';
 import { addDoc, collection } from 'firebase/firestore';
 
-const AddTask = (props) => {
+const TodoTasks = (props) => {
     
     const [task, setTask] = useState([]);
     const [priorityType, setPriorityType] = useState('');
@@ -69,5 +69,5 @@ const AddTask = (props) => {
     );
 }
 
-export default AddTask;
+export default TodoTasks;
 

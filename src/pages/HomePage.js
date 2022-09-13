@@ -1,5 +1,5 @@
 import UserPanel from '../components/userPanel';
-import AddTask from '../components/addTask';
+import TodoTasks from '../components/todoTasks';
 import TaskList from '../components/taskList';
 
 import React from 'react';
@@ -14,7 +14,7 @@ const Home = (props) => {
     return (
         <div className="home-page"> 
         <UserPanel user={props.user} logout={props.logout} /> 
-        <AddTask add={props.add} />
+        <TodoTasks add={props.add} />
         <TaskList list={props.list} />
         </div>
         

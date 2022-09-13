@@ -1,17 +1,37 @@
 .userpanel {
+    width: 100%;
+    height: 80px;
+    background-color: grey;
+    border-bottom: 4px solid black;
+    margin-bottom: 70px; 
+}
+.userInfo {
     display: flex;
-    margin-top: 10px;
+    margin-top: 20px;
+    height: 70px;
     justify-content: space-between;
-    margin-bottom: 70px;
 }
 
-.userpanel h1 {
+.userInfo h1 {
     margin-left: 35px;
     font-size: 18px;
+    width: 10%;
+    align-self: center;
 }
 
-.userpanel button {
+.userInfo img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: 5px solid #111;
+    margin-top: 5px;
+    margin-right: 75%;
+    align-self: center;
+}
+
+.userInfo button {
     margin-right: 50px;
+    align-self: center;
     width: 5%;
     height: 35px;
     background-color: #00695c;
